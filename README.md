@@ -16,27 +16,25 @@ Built with **SwiftUI** and **Swift 6**, no Xcode required.
 - **Progress bars** — visual indicators for health % and spare
 - **SATA support** — reallocated sectors, pending sectors, CRC errors
 - **Technical details** — full `smartctl` raw output parsed (NVMe version, PCI vendor, power states, etc.)
-- **Single admin prompt** — batches all smartctl commands into one authentication
+- **Auto-install** — if `smartctl` or even Homebrew are missing, the app offers to install them with one click
+- **Single admin prompt** — batches all `smartctl` commands into one authentication
 - **Native macOS UI** — sidebar + detail, dark/light mode, native materials
 
 ## Requirements
 
 - macOS 14.0+ (Apple Silicon or Intel)
-- [smartmontools](https://www.smartmontools.org) (`brew install smartmontools`)
+- Internet connection (only if auto-install is needed)
 
 ## Usage
 
-1. Install smartmontools:
-   ```bash
-   brew install smartmontools
-   ```
-
-2. Open `DiskInfo.app` or run from source:
+1. Open `DiskInfo.app` or run from source:
    ```bash
    swift run
    ```
+2. If `smartctl` is not found, the app will offer to install it automatically (one click).
+3. Authorize the admin prompt to read SMART data (one-time per session).
 
-3. Authorize the admin prompt when asked (one-time per session).
+No manual setup required.
 
 ## Build from Source
 
@@ -52,9 +50,9 @@ cp .build/arm64-apple-macosx/release/DiskInfo DiskInfo.app/Contents/MacOS/DiskIn
 The app uses two command-line tools behind the scenes:
 
 - **`diskutil`** (built into macOS) — lists disks and retrieves basic info (model, size, interface)
-- **`smartctl`** (from smartmontools) — reads detailed SMART/health data via NVMe or ATA protocols
+- **`smartctl`** (from [smartmontools](https://www.smartmontools.org)) — reads detailed SMART/health data via NVMe or ATA protocols
 
-All privileged commands run through a single `osascript` admin-authenticated call. The bundled `smartctl` was removed because macOS SIP kills unsigned binaries when run as root.
+If `smartctl` is missing, the app auto-installs it via Homebrew (`brew install smartmontools`). If Homebrew itself is missing, it installs that too. All privileged operations run through a single `osascript` admin-authenticated call.
 
 ## License
 
