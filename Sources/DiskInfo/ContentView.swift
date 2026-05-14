@@ -51,11 +51,32 @@ struct ContentView: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
-                Button("Retry") {
-                    refresh()
+                if !state.isSmartCtlAvailable && !state.isInstalling {
+                    Button(action: { Task { await state.installAll() } }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "arrow.down.circle")
+                            Text(state.installLabel)
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                } else if state.isInstalling {
+                    VStack(spacing: 12) {
+                        ProgressView()
+                            .controlSize(.large)
+                        Text("Installing...")
+                            .font(.subheadline)
+                        Text(state.isHomebrewAvailable ? "Installing smartmontools..." : "Installing Homebrew...")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                } else {
+                    Button("Retry") {
+                        refresh()
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
                 }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -72,6 +93,24 @@ struct ContentView: View {
                         Text("Loading SMART data...")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
+                    }
+                    .padding(.vertical, 8)
+                } else if let error = state.error {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(error)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        if !state.isSmartCtlAvailable && !state.isInstalling {
+                            Button(action: { Task { await state.installAll() } }) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: "arrow.down.circle")
+                                    Text(state.installLabel)
+                                        .font(.caption)
+                                }
+                            }
+                            .buttonStyle(.borderless)
+                            .foregroundStyle(.blue)
+                        }
                     }
                     .padding(.vertical, 8)
                 }
@@ -95,7 +134,42 @@ struct ContentView: View {
                 description: Text("Connect a drive and click refresh")
             )
         } else if let disk = state.selectedDisk {
-            DiskDetailView(disk: disk, isLoadingSmart: state.isLoadingSmart)
+            if let error = state.error, !state.isLoadingSmart {
+                ScrollView {
+                    VStack(spacing: 20) {
+                        DiskDetailView(disk: disk, isLoadingSmart: false)
+                        VStack(spacing: 12) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.title2)
+                                .foregroundStyle(.orange)
+                            Text(error)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                            if !state.isSmartCtlAvailable && !state.isInstalling {
+                                Button(action: { Task { await state.installAll() } }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "arrow.down.circle")
+                                        Text(state.installLabel)
+                                    }
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .controlSize(.large)
+                            } else if state.isInstalling {
+                                ProgressView()
+                                    .controlSize(.regular)
+                                Text("Installing...")
+                                    .font(.subheadline)
+                            }
+                        }
+                        .padding()
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                    }
+                    .padding(20)
+                }
+            } else {
+                DiskDetailView(disk: disk, isLoadingSmart: state.isLoadingSmart)
+            }
         } else {
             ContentUnavailableView(
                 "Select a Disk",

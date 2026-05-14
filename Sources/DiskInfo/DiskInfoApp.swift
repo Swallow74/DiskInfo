@@ -26,8 +26,12 @@ final class AppState {
     var isLoadingSmart = false
     var error: String?
     var lastRefresh = Date()
+    var isInstalling = false
 
     private let service = DiskService()
+
+    var isSmartCtlAvailable: Bool { service.isSmartCtlAvailable }
+    var isHomebrewAvailable: Bool { service.isHomebrewAvailable }
 
     func loadDisks() async {
         isLoading = true
@@ -49,22 +53,50 @@ final class AppState {
 
     private func loadSmartData() async {
         guard !disks.isEmpty else { return }
-        isLoadingSmart = true
-        let smartMap = await service.fetchSmartData(for: disks)
-        isLoadingSmart = false
-        for i in disks.indices {
-            if let smart = smartMap[disks[i].bsdName] {
-                disks[i].smartData = smart
+        if isSmartCtlAvailable {
+            isLoadingSmart = true
+            let smartMap = await service.fetchSmartData(for: disks)
+            isLoadingSmart = false
+            for i in disks.indices {
+                if let smart = smartMap[disks[i].bsdName] {
+                    disks[i].smartData = smart
+                }
             }
-        }
-        if smartMap.isEmpty, !disks.allSatisfy({ $0.smartStatus == .unsupported || $0.smartStatus == .unknown }) {
-            if !FileManager.default.fileExists(atPath: "/opt/homebrew/bin/smartctl")
-                && !FileManager.default.fileExists(atPath: "/usr/local/bin/smartctl") {
-                error = "Install smartmontools: 'brew install smartmontools'"
-            } else {
+            if smartMap.isEmpty, !disks.allSatisfy({ $0.smartStatus == .unsupported || $0.smartStatus == .unknown }) {
                 error = "SMART data unavailable. Authorize the admin prompt when requested."
             }
         }
+    }
+
+    func installAll() async {
+        isInstalling = true
+        error = nil
+
+        if !isHomebrewAvailable {
+            let brewOk = await service.installHomebrew()
+            if !brewOk {
+                error = "Homebrew installation failed. Install manually: https://brew.sh"
+                isInstalling = false
+                return
+            }
+        }
+
+        if !isSmartCtlAvailable {
+            let smartOk = await service.installSmartCtl()
+            if !smartOk {
+                error = "smartmontools installation failed. Try manually: brew install smartmontools"
+                isInstalling = false
+                return
+            }
+        }
+
+        isInstalling = false
+        await loadSmartData()
+    }
+
+    var installLabel: String {
+        if !isHomebrewAvailable { return "Install Homebrew" }
+        return "Install smartmontools"
     }
 
     func refresh() async {

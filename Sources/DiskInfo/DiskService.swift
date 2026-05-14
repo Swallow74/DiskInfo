@@ -23,6 +23,37 @@ actor DiskService {
         return "/opt/homebrew/bin/smartctl"
     }
 
+    nonisolated var isSmartCtlAvailable: Bool {
+        let paths = ["/opt/homebrew/bin/smartctl", "/usr/local/bin/smartctl"]
+        return paths.contains(where: { FileManager.default.fileExists(atPath: $0) })
+    }
+
+    nonisolated var isHomebrewAvailable: Bool {
+        FileManager.default.fileExists(atPath: "/opt/homebrew/bin/brew")
+            || FileManager.default.fileExists(atPath: "/usr/local/bin/brew")
+    }
+
+    func installHomebrew() async -> Bool {
+        let cmd = "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+        let script = "do shell script \"\(cmd)\" with administrator privileges"
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+        try? process.run()
+        process.waitUntilExit()
+        return process.terminationStatus == 0 && isHomebrewAvailable
+    }
+
+    func installSmartCtl() async -> Bool {
+        let script = "do shell script \"brew install smartmontools\" with administrator privileges"
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+        try? process.run()
+        process.waitUntilExit()
+        return process.terminationStatus == 0 && isSmartCtlAvailable
+    }
+
     // MARK: - Public API
 
     func scanDisks() async throws -> [Disk] {
