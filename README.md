@@ -8,6 +8,8 @@ A native macOS app that displays detailed SMART information for all connected di
 
 Built with **SwiftUI** and **Swift 6**, no Xcode required.
 
+![Screenshot](screenshot.png)
+
 ## Features
 
 - **Real-time disk scan** — detects all physical disks via `diskutil`
