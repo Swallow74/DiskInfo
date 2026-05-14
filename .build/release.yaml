@@ -1,0 +1,66 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "DiskInfo-arm64-apple-macosx-release.exe": ["<DiskInfo-arm64-apple-macosx-release.exe>"]
+  "DiskInfo-arm64-apple-macosx-release.module": ["<DiskInfo-arm64-apple-macosx-release.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<DiskInfo-arm64-apple-macosx-release.exe>","<DiskInfo-arm64-apple-macosx-release.module>"]
+  "test": ["<DiskInfo-arm64-apple-macosx-release.exe>","<DiskInfo-arm64-apple-macosx-release.module>"]
+default: "main"
+nodes:
+  "/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/ContentView.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskDetailView.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskInfoApp.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskModel.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskService.swift"]
+    outputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/sources"]
+    description: "Write auxiliary file /Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/sources"
+
+  "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService.swift.o"]
+    outputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.product/Objects.LinkFileList"
+
+  "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+
+  "<DiskInfo-arm64-apple-macosx-release.exe>":
+    tool: phony
+    inputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo"]
+    outputs: ["<DiskInfo-arm64-apple-macosx-release.exe>"]
+
+  "<DiskInfo-arm64-apple-macosx-release.module>":
+    tool: phony
+    inputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/Modules/DiskInfo.swiftmodule"]
+    outputs: ["<DiskInfo-arm64-apple-macosx-release.module>"]
+
+  "C.DiskInfo-arm64-apple-macosx-release.exe":
+    tool: shell
+    inputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.product/Objects.LinkFileList"]
+    outputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo"]
+    description: "Linking ./.build/arm64-apple-macosx/release/DiskInfo"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release","-o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo","-module-name","DiskInfo","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-dead_strip","-Xlinker","-alias","-Xlinker","_DiskInfo_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.DiskInfo-arm64-apple-macosx-release.module":
+    tool: shell
+    inputs: ["/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/ContentView.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskDetailView.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskInfoApp.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskModel.swift","/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskService.swift","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/sources"]
+    outputs: ["/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService.swift.o","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/Modules/DiskInfo.swiftmodule"]
+    description: "Compiling Swift Module 'DiskInfo' (5 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","DiskInfo","-emit-dependencies","-emit-module","-emit-module-path","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/Modules/DiskInfo.swiftmodule","-output-file-map","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/output-file-map.json","-whole-module-optimization","-num-threads","24","-c","@/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/sources","-I","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx14.0","-whole-module-optimization","-num-threads","24","-serialize-diagnostics","-O","-j24","-DSWIFT_PACKAGE","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","DiskInfo_main","-swift-version","5","-enable-upcoming-feature","StrictConcurrency","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","diskinfo"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/","/Volumes/Kingstone/Programmi/diskinfo/Package.swift","/Volumes/Kingstone/Programmi/diskinfo/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

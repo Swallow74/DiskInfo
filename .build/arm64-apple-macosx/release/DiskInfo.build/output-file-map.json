@@ -1,0 +1,37 @@
+{
+  "": {
+    "dependencies": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfo.d",
+    "object": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfo.o",
+    "swift-dependencies": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/primary.swiftdeps"
+  },
+  "/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/ContentView.swift": {
+    "object": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView.swift.o",
+    "swiftmodule": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView.swiftdeps",
+    "diagnostics": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/ContentView.dia"
+  },
+  "/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskDetailView.swift": {
+    "object": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView.swift.o",
+    "swiftmodule": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView.swiftdeps",
+    "diagnostics": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskDetailView.dia"
+  },
+  "/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskInfoApp.swift": {
+    "object": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp.swift.o",
+    "swiftmodule": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp.swiftdeps",
+    "diagnostics": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskInfoApp.dia"
+  },
+  "/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskModel.swift": {
+    "object": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel.swift.o",
+    "swiftmodule": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel.swiftdeps",
+    "diagnostics": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskModel.dia"
+  },
+  "/Volumes/Kingstone/Programmi/diskinfo/Sources/DiskInfo/DiskService.swift": {
+    "object": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService.swift.o",
+    "swiftmodule": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService.swiftdeps",
+    "diagnostics": "/Volumes/Kingstone/Programmi/diskinfo/.build/arm64-apple-macosx/release/DiskInfo.build/DiskService.dia"
+  }
+}
